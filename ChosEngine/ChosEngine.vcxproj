@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ChosEngine.cpp" />
+    <ClCompile Include="Startup.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

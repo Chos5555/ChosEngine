@@ -1,20 +1,53 @@
-// ChosEngine.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
+#include<SDL.h>
+#undef main
+
+#define SCREEN_WIDTH 384
+#define SCREEN_HEIGHT 216
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	SDL_Init(SDL_INIT_VIDEO);
+
+	SDL_Window *window = SDL_CreateWindow(
+		"Engine",
+		SDL_WINDOWPOS_CENTERED_DISPLAY(0),
+		SDL_WINDOWPOS_CENTERED_DISPLAY(0),
+		1280,
+		720,
+		SDL_WINDOW_ALLOW_HIGHDPI);
+
+	SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
+
+	SDL_Texture* texture = SDL_CreateTexture(
+		renderer,
+		SDL_PIXELFORMAT_ABGR8888,
+		SDL_TEXTUREACCESS_STREAMING,
+		SCREEN_WIDTH,
+		SCREEN_HEIGHT);
+
+	uint32_t pixels[SCREEN_WIDTH * SCREEN_HEIGHT];
+	memset(pixels, 0, sizeof(pixels));
+
+	
+	for (size_t i = 0; i < 50; i++)
+	{
+		pixels[int (SCREEN_HEIGHT / 2) * SCREEN_WIDTH + i] = 0xFF0000FF;
+	}
+
+	SDL_UpdateTexture(texture, NULL, pixels, SCREEN_WIDTH * 4);
+	SDL_RenderCopyEx(
+		renderer,
+		texture,
+		NULL,
+		NULL,
+		0.0,
+		NULL,
+		SDL_FLIP_VERTICAL);
+	SDL_RenderPresent(renderer);
+
+	SDL_DestroyTexture(texture);
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
+	return 0;
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
