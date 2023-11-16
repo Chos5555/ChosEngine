@@ -7,7 +7,7 @@ namespace ChosEngine
 		SDL_Texture* texture;
 		SDL_Renderer* renderer;
 
-
+		bool exit;
 	};
 
 	state create();

@@ -27,7 +27,7 @@ namespace ChosEngine
 			SCREEN_WIDTH,
 			SCREEN_HEIGHT);
 
-		return state{ window, texture, renderer };
+		return state{ window, texture, renderer, false };
 	}
 
 	int destroy(state state)
