@@ -12,7 +12,7 @@ namespace ChosEngine
 	{
 		state state = create();
 
-		uint32_t pixels[SCREEN_WIDTH * SCREEN_HEIGHT];
+		uint32_t *pixels = new uint32_t[SCREEN_WIDTH * SCREEN_HEIGHT];
 		memset(pixels, 0, sizeof(pixels));
 
 
@@ -32,6 +32,8 @@ namespace ChosEngine
 			SDL_FLIP_VERTICAL);
 		SDL_RenderPresent(state.renderer);
 
+
+		delete[] pixels;
 		destroy(state);
 		return 0;
 	}
