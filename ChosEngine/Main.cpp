@@ -2,5 +2,5 @@
 
 int main(int argc, char* args[])
 {
-	Run();
+	ChosEngine::Run();
 }

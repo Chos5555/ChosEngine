@@ -1,13 +1,16 @@
 #pragma once
 
-struct state {
-	SDL_Window* window;
-	SDL_Texture* texture;
-	SDL_Renderer* renderer;
+namespace ChosEngine
+{
+	struct state {
+		SDL_Window* window;
+		SDL_Texture* texture;
+		SDL_Renderer* renderer;
 
 
-};
+	};
 
-state create();
+	state create();
 
-int destroy(state);
+	int destroy(state);
+}

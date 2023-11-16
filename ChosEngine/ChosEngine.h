@@ -1,3 +1,6 @@
 #pragma once
 
-int Run();
+namespace ChosEngine
+{
+	int Run();
+}
