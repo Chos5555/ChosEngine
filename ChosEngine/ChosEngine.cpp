@@ -1,12 +1,13 @@
 #include <iostream>
 #include <SDL.h>
 
+#include "ChosEngine.h"
 #include "Setup.h"
 
 #define SCREEN_WIDTH 384
 #define SCREEN_HEIGHT 216
 
-int main(int argc, char* args[])
+int Run()
 {
 	state state = create();
 

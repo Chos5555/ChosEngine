@@ -7,7 +7,6 @@
 
 state create()
 {
-	SDL_SetMainReady();
 	SDL_Init(SDL_INIT_VIDEO);
 
 	SDL_Window* window = SDL_CreateWindow(
