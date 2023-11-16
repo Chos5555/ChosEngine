@@ -8,11 +8,18 @@
 #define SCREEN_HEIGHT 216
 namespace ChosEngine
 {
+	void Engine::Render(State state)
+	{
+		for (size_t i = 0; i < 50; i++)
+		{
+			state.pixels[int(SCREEN_HEIGHT / 2) * SCREEN_WIDTH + i] = 0xFF0000FF;
+		}
+	}
+
+
 	int Engine::Run()
 	{
-		state state = create();
-
-		uint32_t *pixels = new uint32_t[SCREEN_WIDTH * SCREEN_HEIGHT];
+		State state = *create();
 		
 		while (!state.exit)
 		{
@@ -23,15 +30,11 @@ namespace ChosEngine
 					state.exit = true;
 			}
 
-			memset(pixels, 0, sizeof(pixels));
+			memset(state.pixels, 0, sizeof(state.pixels));
 
+			Render(state);
 
-			for (size_t i = 0; i < 50; i++)
-			{
-				pixels[int(SCREEN_HEIGHT / 2) * SCREEN_WIDTH + i] = 0xFF0000FF;
-			}
-
-			SDL_UpdateTexture(state.texture, NULL, pixels, SCREEN_WIDTH * 4);
+			SDL_UpdateTexture(state.texture, NULL, state.pixels, SCREEN_WIDTH * 4);
 			SDL_RenderCopyEx(
 				state.renderer,
 				state.texture,
@@ -43,7 +46,6 @@ namespace ChosEngine
 			SDL_RenderPresent(state.renderer);
 		}
 
-		delete[] pixels;
 		destroy(state);
 		return 0;
 	}
