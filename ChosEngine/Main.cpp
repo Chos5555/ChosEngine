@@ -2,5 +2,6 @@
 
 int main(int argc, char* args[])
 {
-	ChosEngine::Run();
+	ChosEngine::Engine engine;
+	engine.Run();
 }

@@ -2,5 +2,12 @@
 
 namespace ChosEngine
 {
-	int Run();
+	class Engine
+	{
+	public:
+		int Run();
+
+	private:
+
+	};
 }

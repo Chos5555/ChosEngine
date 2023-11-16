@@ -8,7 +8,7 @@
 #define SCREEN_HEIGHT 216
 namespace ChosEngine
 {
-	int Run()
+	int Engine::Run()
 	{
 		state state = create();
 
