@@ -15,7 +15,10 @@ Map::Map(char* input)
     1, 0, 3, 0, 0, 0, 0, 1,
     1, 1, 1, 1, 1, 1, 1, 1,
         };
-        startPosition = *(new VectorFloat(2, 2))
+        startPosition = *(new VectorFloat(2, 2));
+        startDirection = *(new VectorFloat(-1.0f, 0.1f));
+        startDirection.Normalize();
+        startViewPlane = *(new VectorFloat(0.0f, 0.66f));
 	}
     else
     {

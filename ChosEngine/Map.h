@@ -12,6 +12,8 @@ public:
 	uint16_t size;
 	uint8_t* data;
 	VectorFloat startPosition;
+	VectorFloat startDirection;
+	VectorFloat startViewPlane;
 
 private:
 
