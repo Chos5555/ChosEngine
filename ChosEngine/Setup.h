@@ -29,8 +29,4 @@ namespace ChosEngine
 	private:
 		State* create();
 	};
-
-	//State* create();
-
-	//int destroy(State state);
 }
