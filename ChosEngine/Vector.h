@@ -16,6 +16,7 @@ public:
 	float_t x;
 	float_t y;
 
+	VectorFloat();
 	VectorFloat(int32_t _x, int32_t _y);
 
 	float_t DotProduct(VectorFloat other);

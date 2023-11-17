@@ -2,6 +2,12 @@
 
 #include "Vector.h"
 
+VectorFloat::VectorFloat()
+{
+	x = 0.0f;
+	y = 0.0f;
+}
+
 VectorFloat::VectorFloat(int32_t _x, int32_t _y)
 {
 	x = (float)_x;
