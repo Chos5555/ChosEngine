@@ -2,6 +2,8 @@
 
 #include <stdint.h>
 
+#include "Vector.h"
+
 class Map
 {
 public:
@@ -9,6 +11,7 @@ public:
 
 	uint16_t size;
 	uint8_t* data;
+	VectorFloat startPosition;
 
 private:
 

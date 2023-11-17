@@ -15,6 +15,7 @@ Map::Map(char* input)
     1, 0, 3, 0, 0, 0, 0, 1,
     1, 1, 1, 1, 1, 1, 1, 1,
         };
+        startPosition = *(new VectorFloat(2, 2))
 	}
     else
     {
