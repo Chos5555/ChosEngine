@@ -16,6 +16,10 @@ public:
 	float_t x;
 	float_t y;
 
-	VectorFloat(int _x, int _y) { x = (float)_x; y = (float)_y; }
+	VectorFloat(int32_t _x, int32_t _y);
+
+	float_t DotProduct(VectorFloat other);
+	float_t Length();
+	void Normalize();
 };
 
