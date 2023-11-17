@@ -1,5 +1,7 @@
 #pragma once
 
+#include "State.h"
+
 namespace ChosEngine
 {
 	class State;
@@ -7,10 +9,12 @@ namespace ChosEngine
 	class Engine
 	{
 	public:
+		State state;
+
 		int Run();
 
 	private:
-		void Render(State state);
-		void PollEvents(State* state);
+		void Render();
+		void PollEvents();
 	};
 }

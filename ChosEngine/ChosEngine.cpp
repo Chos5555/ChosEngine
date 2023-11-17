@@ -22,11 +22,11 @@ namespace ChosEngine
 		
 		while (!state.exit)
 		{
-			PollEvents(&state);
+			PollEvents();
 
 			memset(state.pixels, 0, sizeof(state.pixels));
 
-			Render(state);
+			Render();
 
 			SDL_UpdateTexture(state.texture, NULL, state.pixels, SCREEN_WIDTH * 4);
 			SDL_RenderCopyEx(
@@ -44,24 +44,24 @@ namespace ChosEngine
 		return 0;
 	}
 
-	void Engine::PollEvents(State* state)
+	void Engine::PollEvents()
 	{
 		SDL_Event event;
 		while (SDL_PollEvent(&event))
 		{
 			if (event.type == SDL_QUIT)
-				state->exit = true;
+				state.exit = true;
 			else if (event.type == SDL_KEYDOWN)
 			{
 				switch (event.key.keysym.sym)
 				{
 				case SDLK_UP:
-					state->position.x += state->direction.x * state->moveSpeed;
-					state->position.y += state->direction.y * state->moveSpeed;
+					state.position.x += state.direction.x * state.moveSpeed;
+					state.position.y += state.direction.y * state.moveSpeed;
 					break;
 				case SDLK_DOWN:
-					state->position.x -= state->direction.x * state->moveSpeed;
-					state->position.y -= state->direction.y * state->moveSpeed;
+					state.position.x -= state.direction.x * state.moveSpeed;
+					state.position.y -= state.direction.y * state.moveSpeed;
 					break;
 				case SDLK_LEFT:
 					break;
