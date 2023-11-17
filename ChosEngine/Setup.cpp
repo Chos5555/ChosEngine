@@ -1,14 +1,31 @@
 #include <iostream>
+#include <string>
 #include <SDL.h>
 
 #include "Setup.h"
 
-#define M_ASSERT(_e, ...) if (!(_e)) { fprintf(stderr, __VA_ARGS__); exit(1); }
+#ifndef NDEBUG
+#   define M_ASSERT(Expr, Msg) \
+    _M_Assert(#Expr, Expr, __FILE__, __LINE__, Msg)
+#else
+#   define M_ASSERT(Expr, Msg) ;
+#endif
 
 #define SCREEN_WIDTH 384
 #define SCREEN_HEIGHT 216
 namespace ChosEngine
 {
+	void _M_Assert(const char* expr_str, bool expr, const char* file, int line, std::string msg)
+	{
+		if (!expr)
+		{
+			std::cerr << "Assert failed:\t" << msg << "\n"
+				<< "Expected:\t" << expr_str << "\n"
+				<< "Source:\t\t" << file << ", line " << line << "\n";
+			abort();
+		}
+	}
+
 	State::State(SDL_Window* _window, SDL_Texture* _texture, SDL_Renderer* _renderer, uint32_t* _pixels, bool _exit)
 	{
 		window = _window;
@@ -18,14 +35,13 @@ namespace ChosEngine
 		exit = _exit;
 	}
 
-	State* create()
+	State::State()
 	{
 		M_ASSERT(
 			!SDL_Init(SDL_INIT_VIDEO),
-			"SDL failed to initialize: %s\n",
-			SDL_GetError());
+			std::string("SDL failed to initialize: %s\n") + SDL_GetError());
 
-		SDL_Window* window = SDL_CreateWindow(
+		window = SDL_CreateWindow(
 			"Engine",
 			SDL_WINDOWPOS_CENTERED_DISPLAY(0),
 			SDL_WINDOWPOS_CENTERED_DISPLAY(0),
@@ -34,31 +50,30 @@ namespace ChosEngine
 			SDL_WINDOW_ALLOW_HIGHDPI);
 		M_ASSERT(
 			window,
-			"Failed to create SDL window: %s\n", SDL_GetError())
+			std::string("Failed to create SDL window: %s\n") + SDL_GetError());
 
+			renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
+			M_ASSERT(
+				renderer,
+				std::string("Failed to create SDL renderer: %s\n") + SDL_GetError());
 
-		SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
+			texture = SDL_CreateTexture(
+				renderer,
+				SDL_PIXELFORMAT_ABGR8888,
+				SDL_TEXTUREACCESS_STREAMING,
+				SCREEN_WIDTH,
+				SCREEN_HEIGHT);
 		M_ASSERT(
 			renderer,
-			"Failed to create SDL renderer: %s\n", SDL_GetError())
+			std::string("Failed to create SDL texture: %s\n") + SDL_GetError());
 
-		SDL_Texture* texture = SDL_CreateTexture(
-			renderer,
-			SDL_PIXELFORMAT_ABGR8888,
-			SDL_TEXTUREACCESS_STREAMING,
-			SCREEN_WIDTH,
-			SCREEN_HEIGHT);
-		M_ASSERT(
-			renderer,
-			"Failed to create SDL texture: %s\n", SDL_GetError())
-
-		uint32_t* pixels = new uint32_t[SCREEN_WIDTH * SCREEN_HEIGHT];
+		pixels = new uint32_t[SCREEN_WIDTH * SCREEN_HEIGHT];
 		memset(pixels, 0, sizeof(pixels));
 
-		return new State(window, texture, renderer, pixels, false);
+		exit = false;
 	}
-
-	int destroy(State state)
+	
+	int State::destroy(State state)
 	{
 		SDL_DestroyTexture(state.texture);
 		SDL_DestroyRenderer(state.renderer);

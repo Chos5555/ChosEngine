@@ -19,7 +19,7 @@ namespace ChosEngine
 
 	int Engine::Run()
 	{
-		State state = *create();
+		State state;
 		
 		while (!state.exit)
 		{
@@ -41,7 +41,7 @@ namespace ChosEngine
 			SDL_RenderPresent(state.renderer);
 		}
 
-		destroy(state);
+		state.destroy(state);
 		return 0;
 	}
 

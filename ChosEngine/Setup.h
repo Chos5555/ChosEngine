@@ -15,15 +15,22 @@ namespace ChosEngine
 
 		bool exit;
 
+		State();
+
 		State(
 			SDL_Window* _window,
 			SDL_Texture* _texture,
 			SDL_Renderer* _renderer,
 			uint32_t* _pixels,
 			bool _exit);
+
+		int destroy(State state);
+
+	private:
+		State* create();
 	};
 
-	State* create();
+	//State* create();
 
-	int destroy(State state);
+	//int destroy(State state);
 }
