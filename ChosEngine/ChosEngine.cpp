@@ -16,7 +16,6 @@ namespace ChosEngine
 		}
 	}
 
-
 	int Engine::Run()
 	{
 		State state;
