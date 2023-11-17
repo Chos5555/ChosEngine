@@ -11,6 +11,6 @@ namespace ChosEngine
 
 	private:
 		void Render(State state);
-
+		void PollEvents(State* state);
 	};
 }

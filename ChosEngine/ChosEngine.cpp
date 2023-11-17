@@ -23,12 +23,7 @@ namespace ChosEngine
 		
 		while (!state.exit)
 		{
-			SDL_Event event;
-			while (SDL_PollEvent(&event))
-			{
-				if (event.type == SDL_QUIT)
-					state.exit = true;
-			}
+			PollEvents(&state);
 
 			memset(state.pixels, 0, sizeof(state.pixels));
 
@@ -48,5 +43,29 @@ namespace ChosEngine
 
 		destroy(state);
 		return 0;
+	}
+
+	void Engine::PollEvents(State* state)
+	{
+		SDL_Event event;
+		while (SDL_PollEvent(&event))
+		{
+			if (event.type == SDL_QUIT)
+				state->exit = true;
+			else if (event.type == SDL_KEYDOWN)
+			{
+				switch (event.key.keysym.sym)
+				{
+				case SDLK_UP:
+					break;
+				case SDLK_DOWN:
+					break;
+				case SDLK_LEFT:
+					break;
+				case SDLK_RIGHT:
+					break;
+				}
+			}
+		}
 	}
 }
