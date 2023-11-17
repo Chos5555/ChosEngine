@@ -2,7 +2,7 @@
 #include <string>
 #include <SDL.h>
 
-#include "Setup.h"
+#include "State.h"
 
 #ifndef NDEBUG
 #   define M_ASSERT(Expr, Msg) \

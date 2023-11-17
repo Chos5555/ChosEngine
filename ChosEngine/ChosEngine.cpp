@@ -2,7 +2,7 @@
 #include <SDL.h>
 
 #include "ChosEngine.h"
-#include "Setup.h"
+#include "State.h"
 
 #define SCREEN_WIDTH 384
 #define SCREEN_HEIGHT 216
