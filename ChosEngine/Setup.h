@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Vector.h"
+
 #define SCREEN_WIDTH 384
 #define SCREEN_HEIGHT 216
 
@@ -14,6 +16,10 @@ namespace ChosEngine
 		uint32_t* pixels;
 
 		bool exit;
+
+		VectorFloat position;
+		VectorFloat direction;
+		VectorFloat viewPlane;
 
 		State();
 
