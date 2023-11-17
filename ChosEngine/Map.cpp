@@ -4,8 +4,8 @@ Map::Map(char* input)
 {
 	if (input == "test")
 	{
-		Size = 8;
-		Data = new uint8_t[Size * Size]{
+		size = 8;
+		data = new uint8_t[size * size]{
     1, 1, 1, 1, 1, 1, 1, 1,
     1, 0, 0, 0, 0, 0, 0, 1,
     1, 0, 0, 0, 0, 3, 0, 1,
@@ -18,7 +18,7 @@ Map::Map(char* input)
 	}
     else
     {
-        Size = 0;
-        Data = new uint8_t[0];
+        size = 0;
+        data = new uint8_t[0];
     }
 }
