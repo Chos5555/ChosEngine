@@ -71,6 +71,10 @@ namespace ChosEngine
 		memset(pixels, 0, sizeof(pixels));
 
 		exit = false;
+
+		// TODO: Take from method args
+		rotateSpeed = 3.0f * 0.016f;
+		moveSpeed = 3.0f * 0.016f;
 	}
 	
 	int State::destroy(State state)
