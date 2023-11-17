@@ -25,8 +25,5 @@ namespace ChosEngine
 			bool _exit);
 
 		int destroy(State state);
-
-	private:
-		State* create();
 	};
 }
