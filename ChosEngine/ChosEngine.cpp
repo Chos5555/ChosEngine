@@ -56,8 +56,12 @@ namespace ChosEngine
 				switch (event.key.keysym.sym)
 				{
 				case SDLK_UP:
+					state->position.x += state->direction.x * state->moveSpeed;
+					state->position.y += state->direction.y * state->moveSpeed;
 					break;
 				case SDLK_DOWN:
+					state->position.x -= state->direction.x * state->moveSpeed;
+					state->position.y -= state->direction.y * state->moveSpeed;
 					break;
 				case SDLK_LEFT:
 					break;
