@@ -2,13 +2,21 @@
 #include <SDL.h>
 
 #include "ChosEngine.h"
-#include "State.h"
 
 #define SCREEN_WIDTH 384
 #define SCREEN_HEIGHT 216
 namespace ChosEngine
 {
-	void Engine::Render(State state)
+	void Engine::Rotate(float_t rotation)
+	{
+		const VectorFloat dir = state.direction, pos = state.position;
+		state.direction.x = dir.x * cos(rotation) - dir.y * sin(rotation);
+		state.direction.y = dir.x * sin(rotation) + dir.y * cos(rotation);
+		state.viewPlane.x = pos.x * cos(rotation) - pos.y * sin(rotation);
+		state.viewPlane.y = pos.x * sin(rotation) + pos.y * cos(rotation);
+	}
+
+	void Engine::Render()
 	{
 		for (size_t i = 0; i < 50; i++)
 		{
@@ -18,8 +26,6 @@ namespace ChosEngine
 
 	int Engine::Run()
 	{
-		State state;
-		
 		while (!state.exit)
 		{
 			PollEvents();
@@ -64,8 +70,10 @@ namespace ChosEngine
 					state.position.y -= state.direction.y * state.moveSpeed;
 					break;
 				case SDLK_LEFT:
+					Rotate(+state.rotateSpeed);
 					break;
 				case SDLK_RIGHT:
+					Rotate(-state.rotateSpeed);
 					break;
 				}
 			}

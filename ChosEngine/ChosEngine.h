@@ -4,8 +4,6 @@
 
 namespace ChosEngine
 {
-	class State;
-
 	class Engine
 	{
 	public:
@@ -16,5 +14,6 @@ namespace ChosEngine
 	private:
 		void Render();
 		void PollEvents();
+		void Rotate(float_t rotation);
 	};
 }
