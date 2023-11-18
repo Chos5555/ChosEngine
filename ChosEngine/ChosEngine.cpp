@@ -41,10 +41,88 @@ namespace ChosEngine
 
 	void Engine::Render()
 	{
-		for (size_t i = 0; i < 50; i++)
+		for (int x = 0; x < SCREEN_WIDTH; x++)
 		{
-			state.pixels[int(SCREEN_HEIGHT / 2) * SCREEN_WIDTH + i] = 0xFF0000FF;
-		}
+			const float_t xcam = (2 * (x / (float_t)(SCREEN_WIDTH))) - 1;
+
+			const VectorFloat direction = {
+				state.direction.x + state.viewPlane.x * xcam,
+				state.direction.y + state.viewPlane.y * xcam,
+			};
+
+			VectorFloat position = state.position;
+			VectorInt intPosition = { (int)position.x, (int)position.y, };
+
+			const VectorFloat deltaDistance = {
+				fabsf(direction.x) < 1e-20 ? (float_t)1e30 : (float_t)fabsf(1.0f / direction.x),
+				fabsf(direction.y) < 1e-20 ? (float_t)1e30 : (float_t)fabsf(1.0f / direction.y),
+			};
+
+			VectorFloat sideDistance = {
+				deltaDistance.x * (direction.x < 0 ?
+					(position.x - intPosition.x) :
+					(intPosition.x + 1 - position.x)),
+				deltaDistance.y * (direction.y < 0 ?
+					(position.y - intPosition.y) :
+					(intPosition.y + 1 - position.y))
+			};
+
+			const VectorInt step = { (int)Sign(direction.x), (int)Sign(direction.y) };
+
+			struct { int val, side; VectorFloat pos; } hit = { 0, 0, { 0.0f,0.0f } };
+
+			while (!hit.val)
+			{
+				if (sideDistance.x < sideDistance.y)
+				{
+					sideDistance.x += deltaDistance.x;
+					intPosition.x += step.x;
+					hit.side = 0;
+				}
+				else
+				{
+					sideDistance.y += deltaDistance.y;
+					intPosition.y += step.y;
+					hit.side = 1;
+				}
+
+				hit.val = map.data[intPosition.y * map.size + intPosition.x];
+			}
+
+			uint32_t color;
+			switch (hit.val) {
+			case 1: color = 0xFF0000FF; break;
+			case 2: color = 0xFF00FF00; break;
+			case 3: color = 0xFFFF0000; break;
+			case 4: color = 0xFFFF00FF; break;
+			}
+
+			if (hit.side == 1) {
+				const uint32_t
+					br = ((color & 0xFF00FF) * 0xC0) >> 8,
+					g = ((color & 0x00FF00) * 0xC0) >> 8;
+
+				color = 0xFF000000 | (br & 0xFF00FF) | (g & 0x00FF00);
+			}
+
+			hit.pos.x = position.x + sideDistance.x;
+			hit.pos.y = position.y + sideDistance.y;
+
+			const float_t dperp =
+				hit.side == 0 ?
+				(sideDistance.x - deltaDistance.x) :
+				(sideDistance.y - deltaDistance.y);
+
+			const int
+				h = (int)(SCREEN_HEIGHT / dperp),
+				y0 = Max((SCREEN_HEIGHT / 2) - (h / 2), 0),
+				y1 = Min((SCREEN_HEIGHT / 2) + (h / 2), SCREEN_HEIGHT - 1);
+
+
+			VerticalLine(x, 0, y0, 0xFF202020);
+			VerticalLine(x, y0, y1, color);
+			VerticalLine(x, y1, SCREEN_HEIGHT - 1, 0xFF505050);
+		};
 	}
 
 	int Engine::Run()
