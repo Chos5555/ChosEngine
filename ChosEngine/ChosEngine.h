@@ -14,8 +14,9 @@ namespace ChosEngine
 	public:
 		State state;
 		Map map;
+		const char* mapFileName;
 
-		Engine(int32_t _screenWidth, int32_t _screenHeight, float_t _rotateSpeed, float_t _moveSpeed);
+		Engine(int32_t _screenWidth, int32_t _screenHeight, float_t _rotateSpeed, float_t _moveSpeed, const char* _mapFileName);
 
 		int Run();
 

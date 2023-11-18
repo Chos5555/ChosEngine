@@ -20,8 +20,9 @@ namespace ChosEngine
 		return a > b ? a : b;
 	}
 
-	Engine::Engine(int32_t _screenWidth, int32_t _screenHeight, float_t _rotateSpeed, float_t _moveSpeed) : state(state)
+	Engine::Engine(int32_t _screenWidth, int32_t _screenHeight, float_t _rotateSpeed, float_t _moveSpeed, const char* _mapFileName) : state(state)
 	{
+		mapFileName = _mapFileName;
 		state = *(new State(_screenWidth, _screenHeight, _rotateSpeed, _moveSpeed));
 	}
 
@@ -130,7 +131,7 @@ namespace ChosEngine
 
 	int Engine::Run()
 	{
-		map = *(new Map("TestMap.txt"));
+		map = *(new Map(mapFileName));
 
 		state.position = map.startPosition;
 		state.direction = map.startDirection;
