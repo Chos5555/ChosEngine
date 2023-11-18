@@ -7,8 +7,7 @@
 class Map
 {
 public:
-	Map(char *input);
-
+	Map();
 	uint16_t size;
 	uint8_t* data;
 	VectorFloat startPosition;

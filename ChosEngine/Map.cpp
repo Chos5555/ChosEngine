@@ -1,9 +1,7 @@
 #include "Map.h"
 
-Map::Map(char* input)
+Map::Map()
 {
-	if (input == "test")
-	{
 		size = 8;
 		data = new uint8_t[size * size]{
     1, 1, 1, 1, 1, 1, 1, 1,
@@ -19,10 +17,4 @@ Map::Map(char* input)
         startDirection = *(new VectorFloat(-1.0f, 0.1f));
         startDirection.Normalize();
         startViewPlane = *(new VectorFloat(0.0f, 0.66f));
-	}
-    else
-    {
-        size = 0;
-        data = new uint8_t[0];
-    }
 }
