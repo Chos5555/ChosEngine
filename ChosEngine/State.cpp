@@ -11,8 +11,6 @@
 #   define M_ASSERT(Expr, Msg) ;
 #endif
 
-#define SCREEN_WIDTH 384
-#define SCREEN_HEIGHT 216
 namespace ChosEngine
 {
 	void _M_Assert(const char* expr_str, bool expr, const char* file, int line, std::string msg)
@@ -26,17 +24,44 @@ namespace ChosEngine
 		}
 	}
 
-	State::State(SDL_Window* _window, SDL_Texture* _texture, SDL_Renderer* _renderer, uint32_t* _pixels, bool _exit)
+	State::State(
+		SDL_Window* _window,
+		SDL_Texture* _texture,
+		SDL_Renderer* _renderer,
+		uint32_t* _pixels,
+		bool _exit,
+		int32_t _screenWidth,
+		int32_t _screenHeight,
+		VectorFloat _position,
+		VectorFloat _direction,
+		VectorFloat _viewPlane,
+		float_t _rotateSpeed,
+		float_t _moveSpeed)
 	{
 		window = _window;
 		texture = _texture;
 		renderer = _renderer;
 		pixels = _pixels;
 		exit = _exit;
+		screenWidth = _screenWidth;
+		screenHeight = _screenHeight;
+		position = _position;
+		direction = _direction;
+		viewPlane = _viewPlane;
+		rotateSpeed = _rotateSpeed;
+		moveSpeed = _moveSpeed;
 	}
 
-	State::State()
+	State::State(int32_t _screenWidth, int32_t _screenHeight, float_t _rotateSpeed, float_t _moveSpeed)
 	{
+		screenWidth = _screenWidth;
+		screenHeight = _screenHeight;
+
+		rotateSpeed = _rotateSpeed;
+		moveSpeed = _moveSpeed;
+
+		exit = false;
+
 		M_ASSERT(
 			!SDL_Init(SDL_INIT_VIDEO),
 			std::string("SDL failed to initialize: %s\n") + SDL_GetError());
@@ -61,20 +86,14 @@ namespace ChosEngine
 				renderer,
 				SDL_PIXELFORMAT_ABGR8888,
 				SDL_TEXTUREACCESS_STREAMING,
-				SCREEN_WIDTH,
-				SCREEN_HEIGHT);
+				screenWidth,
+				screenHeight);
 		M_ASSERT(
 			renderer,
 			std::string("Failed to create SDL texture: %s\n") + SDL_GetError());
 
-		pixels = new uint32_t[SCREEN_WIDTH * SCREEN_HEIGHT];
+		pixels = new uint32_t[screenWidth * screenHeight];
 		memset(pixels, 0, sizeof(pixels));
-
-		exit = false;
-
-		// TODO: Take from method args
-		rotateSpeed = 3.0f * 0.016f;
-		moveSpeed = 3.0f * 0.016f;
 	}
 	
 	int State::destroy(State state)

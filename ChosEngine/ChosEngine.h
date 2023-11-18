@@ -15,6 +15,8 @@ namespace ChosEngine
 		State state;
 		Map map;
 
+		Engine(int32_t _screenWidth, int32_t _screenHeight, float_t _rotateSpeed, float_t _moveSpeed);
+
 		int Run();
 
 	private:

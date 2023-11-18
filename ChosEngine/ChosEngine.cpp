@@ -3,8 +3,6 @@
 
 #include "ChosEngine.h"
 
-#define SCREEN_WIDTH 384
-#define SCREEN_HEIGHT 216
 namespace ChosEngine
 {
 	template <typename T> int8_t Sign(T a)
@@ -22,6 +20,11 @@ namespace ChosEngine
 		return a > b ? a : b;
 	}
 
+	Engine::Engine(int32_t _screenWidth, int32_t _screenHeight, float_t _rotateSpeed, float_t _moveSpeed) : state(state)
+	{
+		state = *(new State(_screenWidth, _screenHeight, _rotateSpeed, _moveSpeed));
+	}
+
 	void Engine::Rotate(float_t rotation)
 	{
 		const VectorFloat dir = state.direction, pla = state.viewPlane;
@@ -35,15 +38,15 @@ namespace ChosEngine
 	{
 		for (int y = y0; y < y1; y++)
 		{
-			state.pixels[(y * SCREEN_WIDTH) + x] = color;
+			state.pixels[(y * state.screenWidth) + x] = color;
 		}
 	}
 
 	void Engine::Render()
 	{
-		for (int x = 0; x < SCREEN_WIDTH; x++)
+		for (int x = 0; x < state.screenWidth; x++)
 		{
-			const float_t xcam = (2 * (x / (float_t)(SCREEN_WIDTH))) - 1;
+			const float_t xcam = (2 * (x / (float_t)(state.screenWidth))) - 1;
 
 			const VectorFloat direction = {
 				state.direction.x + state.viewPlane.x * xcam,
@@ -114,14 +117,14 @@ namespace ChosEngine
 				(sideDistance.y - deltaDistance.y);
 
 			const int
-				h = (int)(SCREEN_HEIGHT / dperp),
-				y0 = Max((SCREEN_HEIGHT / 2) - (h / 2), 0),
-				y1 = Min((SCREEN_HEIGHT / 2) + (h / 2), SCREEN_HEIGHT - 1);
+				h = (int)(state.screenHeight / dperp),
+				y0 = Max((state.screenHeight / 2) - (h / 2), 0),
+				y1 = Min((state.screenHeight / 2) + (h / 2), state.screenHeight - 1);
 
 
 			VerticalLine(x, 0, y0, 0xFF202020);
 			VerticalLine(x, y0, y1, color);
-			VerticalLine(x, y1, SCREEN_HEIGHT - 1, 0xFF505050);
+			VerticalLine(x, y1, state.screenHeight - 1, 0xFF505050);
 		};
 	}
 
@@ -140,7 +143,7 @@ namespace ChosEngine
 
 			Render();
 
-			SDL_UpdateTexture(state.texture, NULL, state.pixels, SCREEN_WIDTH * 4);
+			SDL_UpdateTexture(state.texture, NULL, state.pixels, state.screenWidth * 4);
 			SDL_RenderCopyEx(
 				state.renderer,
 				state.texture,
