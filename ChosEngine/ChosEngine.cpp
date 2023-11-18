@@ -24,11 +24,11 @@ namespace ChosEngine
 
 	void Engine::Rotate(float_t rotation)
 	{
-		const VectorFloat dir = state.direction, pos = state.position;
+		const VectorFloat dir = state.direction, pla = state.viewPlane;
 		state.direction.x = dir.x * cos(rotation) - dir.y * sin(rotation);
 		state.direction.y = dir.x * sin(rotation) + dir.y * cos(rotation);
-		state.viewPlane.x = pos.x * cos(rotation) - pos.y * sin(rotation);
-		state.viewPlane.y = pos.x * sin(rotation) + pos.y * cos(rotation);
+		state.viewPlane.x = pla.x * cos(rotation) - pla.y * sin(rotation);
+		state.viewPlane.y = pla.x * sin(rotation) + pla.y * cos(rotation);
 	}
 
 	void Engine::Render()
