@@ -130,7 +130,8 @@ namespace ChosEngine
 
 	int Engine::Run()
 	{
-		map = *(new Map());
+		map = *(new Map("TestMap.txt"));
+
 		state.position = map.startPosition;
 		state.direction = map.startDirection;
 		state.viewPlane = map.startViewPlane;

@@ -7,7 +7,9 @@
 class Map
 {
 public:
-	Map();
+	Map() {};
+	Map(const char* fileName);
+
 	uint16_t size;
 	uint8_t* data;
 	VectorFloat startPosition;
@@ -16,4 +18,5 @@ public:
 
 private:
 
+	void LoadFromFile(const char* name);
 };
