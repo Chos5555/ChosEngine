@@ -7,6 +7,21 @@
 #define SCREEN_HEIGHT 216
 namespace ChosEngine
 {
+	template <typename T> T Sign(T a)
+	{
+		return (a < 0 ? -1 : (a > 0 ? 1 : 0));
+	}
+
+	template <typename T> T Min(T a, T b)
+	{
+		return a < b ? a : b;
+	}
+
+	template <typename T> T Max(T a, T b)
+	{
+		return a > b ? a : b;
+	}
+
 	void Engine::Rotate(float_t rotation)
 	{
 		const VectorFloat dir = state.direction, pos = state.position;
