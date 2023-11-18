@@ -5,7 +5,7 @@
 
 namespace ChosEngine
 {
-	template <typename T> T Sign(T a);
+	template <typename T> int8_t Sign(T a);
 	template <typename T> T Min(T a, T b);
 	template <typename T> T Max(T a, T b);
 

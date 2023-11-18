@@ -7,7 +7,7 @@
 #define SCREEN_HEIGHT 216
 namespace ChosEngine
 {
-	template <typename T> T Sign(T a)
+	template <typename T> int8_t Sign(T a)
 	{
 		return (a < 0 ? -1 : (a > 0 ? 1 : 0));
 	}
