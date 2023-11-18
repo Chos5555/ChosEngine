@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Map.h"
 #include "State.h"
 
 namespace ChosEngine
@@ -8,6 +9,7 @@ namespace ChosEngine
 	{
 	public:
 		State state;
+		Map map;
 
 		int Run();
 

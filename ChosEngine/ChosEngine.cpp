@@ -26,6 +26,11 @@ namespace ChosEngine
 
 	int Engine::Run()
 	{
+		map = *(new Map());
+		state.position = map.startPosition;
+		state.direction = map.startDirection;
+		state.viewPlane = map.startViewPlane;
+
 		while (!state.exit)
 		{
 			PollEvents();
