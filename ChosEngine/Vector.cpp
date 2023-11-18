@@ -1,5 +1,3 @@
-
-
 #include "Vector.h"
 
 VectorFloat::VectorFloat()
@@ -8,10 +6,10 @@ VectorFloat::VectorFloat()
 	y = 0.0f;
 }
 
-VectorFloat::VectorFloat(int32_t _x, int32_t _y)
+VectorFloat::VectorFloat(float_t _x, float_t _y)
 {
-	x = (float)_x;
-	y = (float)_y;
+	x = _x;
+	y = _y;
 }
 
 float_t VectorFloat::DotProduct(VectorFloat other)
