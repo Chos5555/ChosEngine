@@ -21,5 +21,6 @@ namespace ChosEngine
 		void Render();
 		void PollEvents();
 		void Rotate(float_t rotation);
+		void VerticalLine(int x, int y0, int y1, uint32_t color);
 	};
 }

@@ -31,6 +31,14 @@ namespace ChosEngine
 		state.viewPlane.y = pla.x * sin(rotation) + pla.y * cos(rotation);
 	}
 
+	void Engine::VerticalLine(int x, int y0, int y1, uint32_t color)
+	{
+		for (int y = y0; y < y1; y++)
+		{
+			state.pixels[(y * SCREEN_WIDTH) + x] = color;
+		}
+	}
+
 	void Engine::Render()
 	{
 		for (size_t i = 0; i < 50; i++)
